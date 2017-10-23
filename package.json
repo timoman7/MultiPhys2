@@ -1,0 +1,26 @@
+{
+  "name": "multiphys2",
+  "version": "1.0.0",
+  "description": "Room based collab coding",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.1",
+    "serve": "^6.2.0",
+    "ws": "^3.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timoman7/CodeWithFriends.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timoman7/CodeWithFriends/issues"
+  },
+  "homepage": "https://github.com/timoman7/CodeWithFriends#readme"
+}
