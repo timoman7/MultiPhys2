@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.16.1",
+    "matter-js": "^0.13.0",
     "serve": "^6.2.0",
     "ws": "^3.2.0"
   },
@@ -15,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timoman7/CodeWithFriends.git"
+    "url": "git+https://github.com/timoman7/MultiPhys2.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/timoman7/CodeWithFriends/issues"
+    "url": "https://github.com/timoman7/MultiPhys2/issues"
   },
-  "homepage": "https://github.com/timoman7/CodeWithFriends#readme"
+  "homepage": "https://github.com/timoman7/MultiPhys2#readme"
 }

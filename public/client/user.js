@@ -1,24 +1,50 @@
 class User
 {
-    constructor(codeContainer)
+    constructor(name)
     {
         this.events = new Events;
 
-        this.codeContainer = codeContainer;
-
-        this.caret = 0;
-        this.code = "";
-        this.name = "";
+        this.name = name;
+        this.controls = {
+          UP: false,
+          DOWN: false,
+          LEFT: false,
+          RIGHT: false,
+        };
+        this._controls = {
+          UP: "KeyW",
+          DOWN: "KeyS",
+          LEFT: "KeyA",
+          RIGHT: "KeyD",
+        };
+        this._controlList = [
+          "KeyW",
+          "KeyS",
+          "KeyA",
+          "KeyD",
+        ];
     }
 
-    updateCode(code, callback)
-    {
-      this.code = code;
-      callback(this.code);
+    keyPress(key, state){
+      if(this._controlList.includes(key)){
+        console.log(key)
+        for(let dir in this.controls){
+          if(this._controls[dir] === key){
+            if(state === "keydown"){
+              this.controls[dir] = true;
+            }else if(state === "keyup"){
+              this.controls[dir] = false;
+            }
+          }
+        }
+        this.events.emit("controls", this.controls);
+      }
     }
 
-    update(deltaTime)
-    {
-        //console.log(this.codeContainer);
+    serialize(){
+      return {
+        name: this.name,
+        controls: this.controls,
+      };
     }
 }

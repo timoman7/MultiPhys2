@@ -3,6 +3,9 @@ const express = require('express');
 const WebSocketServer = require('ws').Server;
 const Session = require('./session');
 const Client = require('./client');
+const Matter = require('matter-js');
+
+
 
 function createId(len = 6, chars = 'abcdefghjkmnopqrstvwxyz01234567890') {
     let id = '';
@@ -87,7 +90,8 @@ wss.on('connection', conn => {
             broadcastSession(session);
         } else if (data.type === 'state-update') {
             const [key, value] = data.state;
-            client.state[data.fragment][key] = value;
+            console.log(client.state["controls"]);
+            //client.state[data.fragment][key] = value;
             client.broadcast(data);
         }
 

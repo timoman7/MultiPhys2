@@ -1,75 +1,13 @@
 <html>
 <head>
     <title>Code With Friends</title>
-    <style>
-        body {
-            background: #000;
-            display: flex;
-            color: #fff;
-            font-family: sans-serif;
-            font-size: 2em;
-            text-align: center;
-        }
-
-        .user {
-            flex: 1 1 auto;
-        }
-
-        .user.local canvas {
-            border-color: #fff;
-        }
-
-        .user.local iframe {
-          border-color: #fff;
-        }
-
-        canvas {
-            border: solid .2em #707070;
-            height: 80vh;
-        }
-
-        iframe {
-            border: solid .2em #707070;
-            height: 80vh;
-        }
-        .ace_text-input {
-          text-align: center;
-        }
-    </style>
 </head>
 <body>
-    <template id="user-template">
-        <div class="user">
-            <input type="text" class="name" value=""></input>
-            <iframe class="user-window" sandbox="allow-scripts allow-same-origin" src="client/userSandbox.html" frameborder="0" width="400" height="400" scrolling="no">
-
-            </iframe>
-            <canvas class="user-canvas" width="400" height="400"></canvas>
-            <!-- Figure out some sort of way to update the pre tag
-                and update the code, as well as ACTUALLY DISPLAY IT
-                >:( -->
-            <pre id="editor" class="code">
-              this.cxt = parent.querySelector(".user-canvas");
-              function update(){
-
-              }
-              function draw(){
-
-              }
-
-            </pre>
-            <script class="user-script"></script>
-        </div>
-    </template>
+  <canvas id="screen"></canvas>
     <script src="client/connection-manager.js"></script>
-    <script src="client/code-manager.js"></script>
 
     <script src="client/events.js"></script>
-    <!--<script src="client/arena.js"></script>-->
     <script src="client/user.js"></script>
-    <script src="client/codecontainer.js"></script>
     <script src="client/main.js"></script>
-
-    <script src="src-min/ace.js"></script>
 </body>
 </html>

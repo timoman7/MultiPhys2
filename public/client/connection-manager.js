@@ -1,12 +1,11 @@
 class ConnectionManager
 {
-    constructor(codeManager)
+    constructor(user)
     {
         this.conn = null;
         this.peers = new Map;
 
-        this.codeManager = codeManager;
-        this.localUser = this.codeManager.instances[0];
+        this.user = user;
     }
 
     connect(address)
@@ -28,7 +27,7 @@ class ConnectionManager
     initSession()
     {
         const sessionId = window.location.hash.split('#')[1];
-        const state = this.localUser.serialize();
+        const state = this.user.serialize();
         if (sessionId) {
             this.send({
                 type: 'join-session',
@@ -45,11 +44,10 @@ class ConnectionManager
 
     watchEvents()
     {
-        const local = this.codeManager.instances[0];
-
-        const user = local.user;
-        ['name','code','caret'].forEach(key => {
+      const user = this.user;
+        ['name','controls'].forEach(key => {
             user.events.listen(key, () => {
+                console.log(key)
                 this.send({
                     type: 'state-update',
                     fragment: 'user',
@@ -59,56 +57,13 @@ class ConnectionManager
         });
     }
 
-    updateManager(peers)
-    {
-        const me = peers.you;
-        const clients = peers.clients.filter(client => me !== client.id);
-        clients.forEach(client => {
-            if (!this.peers.has(client.id)) {
-                const codeContainer = this.codeManager.createUser();
-                codeContainer.unserialize(client.state);
-                this.peers.set(client.id, codeContainer);
-            }
-        });
-
-        [...this.peers.entries()].forEach(([id, codeContainer]) => {
-            if (!clients.some(client => client.id === id)) {
-                this.codeManager.removeUser(codeContainer);
-                this.peers.delete(id);
-            }
-        });
-
-        const local = this.codeManager.instances[0];
-        const sorted = peers.clients.map(client => this.peers.get(client.id) || local);
-        this.codeManager.sortUsers(sorted);
-    }
-
-    updatePeer(id, fragment, [key, value])
-    {
-        if (!this.peers.has(id)) {
-            throw new Error('Client does not exist', id);
-        }
-
-        const codeContainer = this.peers.get(id);
-        codeContainer[fragment][key] = value;
-
-        if (key === 'name') {
-            codeContainer.updateName(value);
-        } else {
-            //codeContainer.draw();
-        }
-    }
-
     receive(msg)
     {
         const data = JSON.parse(msg);
         if (data.type === 'session-created') {
             window.location.hash = data.id;
-        } else if (data.type === 'session-broadcast') {
-            this.updateManager(data.peers);
-        } else if (data.type === 'state-update') {
-            this.updatePeer(data.clientId, data.fragment, data.state);
         }
+        console.log(data);
     }
 
     send(data)
