@@ -2,7 +2,7 @@ class User
 {
     constructor(name)
     {
-        this.events = new Events;
+        this.events = new _Events;
 
         this.name = name;
         this.controls = {
@@ -27,7 +27,6 @@ class User
 
     keyPress(key, state){
       if(this._controlList.includes(key)){
-        console.log(key)
         for(let dir in this.controls){
           if(this._controls[dir] === key){
             if(state === "keydown"){
@@ -43,8 +42,10 @@ class User
 
     serialize(){
       return {
-        name: this.name,
-        controls: this.controls,
+        user:{
+          name: this.name,
+          controls: this.controls,
+        }
       };
     }
 }

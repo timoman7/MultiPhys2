@@ -1,3 +1,27 @@
+var Engine = Matter.Engine,
+    Render = Matter.Render,
+    Runner = Matter.Runner,
+    Events = Matter.Events,
+    Composites = Matter.Composites,
+    Common = Matter.Common,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse,
+    World = Matter.World,
+    Vector = Matter.Vector,
+    Bounds = Matter.Bounds,
+    Bodies = Matter.Bodies;
+window.Engine = Engine;
+window.Render = Render;
+window.Runner = Runner;
+window.Events = Events;
+window.Composites = Composites;
+window.Common = Common;
+window.MouseConstraint = MouseConstraint;
+window.Mouse = Mouse;
+window.World = World;
+window.Vector = Vector;
+window.Bounds = Bounds;
+window.Bodies = Bodies;
 const localUser = new User("Tim");
 
 const connectionManager = new ConnectionManager(localUser);

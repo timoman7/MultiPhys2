@@ -1,4 +1,4 @@
-class Events
+class _Events
 {
     constructor()
     {

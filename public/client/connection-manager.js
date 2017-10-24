@@ -47,7 +47,6 @@ class ConnectionManager
       const user = this.user;
         ['name','controls'].forEach(key => {
             user.events.listen(key, () => {
-                console.log(key)
                 this.send({
                     type: 'state-update',
                     fragment: 'user',
@@ -60,8 +59,50 @@ class ConnectionManager
     receive(msg)
     {
         const data = JSON.parse(msg);
-        if (data.type === 'session-created') {
-            window.location.hash = data.id;
+        console.log(data.type)
+        if(data.type === 'session-broadcast'){
+          if(data.engine){
+            window.engine = data.engine;
+            if(window.render){
+              window.render.engine = window.engine;
+            }else{
+              window.render = window.Render.create({
+                element: document.body,
+                engine: window.engine,
+                options: {
+                  width: 800,
+                  height: 600,
+                  hasBounds: true,
+                  showAngleIndicator: true
+                }
+              });
+            }
+            window.Render.run(window.render);
+          }
+        }else if(data.type === 'session-created') {
+          window.location.hash = data.id;
+          if(data.engine){
+            window.engine = data.engine;
+            if(window.render){
+              window.render.engine = window.engine;
+            }else{
+              window.render = window.Render.create({
+                element: document.body,
+                engine: window.engine,
+                options: {
+                  width: 800,
+                  height: 600,
+                  hasBounds: true,
+                  showAngleIndicator: true
+                }
+              });
+            }
+            window.Render.run(window.render);
+          }
+        }else if(data.type === 'world-update'){
+          if(data.engine){
+            window.engine = data.engine;
+          }
         }
         console.log(data);
     }
