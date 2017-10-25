@@ -18,7 +18,7 @@ const Matter = require('./matter');
 var Engine = Matter.Engine,
     Render = Matter.Render,
     Runner = Matter.Runner,
-    Events = Matter.Events,
+    _Events = Matter.Events,
     Composites = Matter.Composites,
     Common = Matter.Common,
     MouseConstraint = Matter.MouseConstraint,
@@ -36,6 +36,16 @@ var boxA = Bodies.rectangle(450, 50, 80, 80);
 var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
 World.add(engine.world, [ground, boxA]);
+
+function engineCallback(event){
+  function updateEngine(_engine){
+    Engine.update(_engine);
+  }
+  setTimeout(updateEngine.bind(null, event.source), 16.666);
+}
+
+_Events.on(engine, "afterUpdate", engineCallback);
+
 Engine.update(engine);
 
 function createId(len = 6, chars = 'abcdefghjkmnopqrstvwxyz01234567890') {
@@ -114,11 +124,6 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({server});
 
 server.listen(process.env.PORT ? process.env.PORT : 5000);
-
-Events.on(engine, "afterUpdate", function(event){
-  console.log("Engine Update", event);
-  Engine.update(engine);
-});
 
 wss.on('connection', conn => {
     console.log('Connection established');
