@@ -15,7 +15,9 @@ class Client
                 UP: false,
                 DOWN: false,
                 LEFT: false,
-                RIGHT: false
+                RIGHT: false,
+                SPIN_LEFT: false,
+                SPIN_RIGHT: false,
               },
             }
         };
