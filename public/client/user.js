@@ -10,18 +10,24 @@ class User
           DOWN: false,
           LEFT: false,
           RIGHT: false,
+          SPIN_LEFT: false,
+          SPIN_RIGHT: false,
         };
         this._controls = {
           UP: "KeyW",
           DOWN: "KeyS",
           LEFT: "KeyA",
           RIGHT: "KeyD",
+          SPIN_LEFT: "KeyQ",
+          SPIN_RIGHT: "KeyE",
         };
         this._controlList = [
           "KeyW",
           "KeyS",
           "KeyA",
           "KeyD",
+          "KeyQ",
+          "KeyE",
         ];
     }
 

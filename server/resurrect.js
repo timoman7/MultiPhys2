@@ -537,3 +537,5 @@ Resurrect.prototype.resurrect = function(string) {
     this.table = null;
     return result;
 };
+
+module.exports = Resurrect;

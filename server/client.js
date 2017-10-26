@@ -1,3 +1,5 @@
+const Serializer = require('./Serializer');
+
 class Client
 {
     constructor(conn, id)
@@ -34,11 +36,12 @@ class Client
 
     send(data)
     {
-        const msg = JSON.stringify(data);
-        console.log(`Sending message ${msg}`);
+        const matterSerialize = Serializer.create();
+        //const msg = JSON.stringify(data);
+        const msg = Serializer.serialise(matterSerialize,data);
         this.conn.send(msg, function ack(err) {
       		if (err) {
-      			console.log('Error sending message', msg, err);
+      			console.log('Error sending message', err);
       		}
       	});
     }

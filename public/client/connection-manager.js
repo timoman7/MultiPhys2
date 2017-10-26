@@ -19,7 +19,9 @@ class ConnectionManager
         });
 
         this.conn.addEventListener('message', event => {
-            console.log('Received message', event.data);
+            if(window.DEBUG){
+              console.log('Received message', event.data);
+            }
             this.receive(event.data);
         });
     }
@@ -58,58 +60,68 @@ class ConnectionManager
 
     receive(msg)
     {
-        const data = JSON.parse(msg);
-        console.log(data.type)
+        const matterSerialize = Serializer.create();
+        const data = matterSerialize.parse(msg);
+        //const data = JSON.parse(msg);
+        if(window.DEBUG){
+          console.log(data.type)
+        }
         if(data.type === 'session-broadcast'){
-          if(data.engine){
-            window.engine = data.engine;
-            if(window.render){
-              window.render.engine = window.engine;
-            }else{
+          if(data.world){
+            window.engine.world = data.world;
+            if(!window.render){
+              let tempOptions = {};
+              ["width", "height", "hasBounds", "showAngleIndicator"].forEach((opt) => {
+                let optVal = 0;
+                if(data.WorldProp[opt]){
+                  optVal = data.WorldProp[opt];
+                }
+                tempOptions[opt] = optVal;
+              });
               window.render = window.Render.create({
                 element: document.body,
                 engine: window.engine,
-                options: {
-                  width: 800,
-                  height: 600,
-                  hasBounds: true,
-                  showAngleIndicator: true
-                }
+                options: tempOptions
               });
             }
             window.Render.run(window.render);
           }
         }else if(data.type === 'session-created') {
           window.location.hash = data.id;
-          if(data.engine){
-            window.engine = data.engine;
-            if(window.render){
-              window.render.engine = window.engine;
-            }else{
+          if(data.world){
+            window.engine.world = data.world;
+            if(!window.render){
+              let tempOptions = {};
+              ["width", "height", "hasBounds", "showAngleIndicator"].forEach((opt) => {
+                let optVal = 0;
+                if(data.WorldProp[opt]){
+                  optVal = data.WorldProp[opt];
+                }
+                tempOptions[opt] = optVal;
+              });
               window.render = window.Render.create({
                 element: document.body,
                 engine: window.engine,
-                options: {
-                  width: 800,
-                  height: 600,
-                  hasBounds: true,
-                  showAngleIndicator: true
-                }
+                options: tempOptions
               });
             }
             window.Render.run(window.render);
           }
         }else if(data.type === 'world-update'){
-          if(data.engine){
-            window.engine = data.engine;
+          if(data.world){
+            window.engine.world = data.world;
           }
         }
-        console.log(data);
+        if(window.DEBUG){
+          console.log(data)
+        }
     }
 
     send(data)
     {
-        const msg = JSON.stringify(data);
+        const matterSerialize = Serializer.create();
+        const msg = Serializer.serialise(matterSerialize, data);
+        //const msg = JSON.stringify(data);
         console.log('Sending message', msg);
         this.conn.send(msg);
     }
