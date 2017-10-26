@@ -6,7 +6,7 @@
 * Therefore, bower_components folder must reside in the root(MultiPhys2)
 * Inside of bower_components resides /resurrect-js/ ... in that is the
 * resurrect.js file
-*/
+**/
 
 const http = require('http');
 const express = require('express');
@@ -73,9 +73,12 @@ function createSession(id = createId()) {
     const session = new Session(id);
     session.engine = Engine.create();
     var boxA = Bodies.rectangle(450, 50, 80, 80);
-    var ground = Bodies.rectangle(400, 500, 810, 60, { isStatic: true });
+    var ground = Bodies.rectangle(WorldProp.width/2, WorldProp.height, WorldProp.width, 60, { isStatic: true });
+    var left_wall = Bodies.rectangle(0, WorldProp.height/2, 20, WorldProp.height, { isStatic: true });
+    var right_wall = Bodies.rectangle(WorldProp.width, WorldProp.height/2, 20, WorldProp.height, { isStatic: true });
+    var ceiling = Bodies.rectangle(WorldProp.width/2, 0, WorldProp.width, 60, { isStatic: true });
 
-    World.add(session.engine.world, [ground, boxA]);
+    World.add(session.engine.world, [ground, boxA, left_wall, right_wall, ceiling]);
 
     _Events.on(session.engine, "afterUpdate", engineCallback);
 
