@@ -6,12 +6,14 @@
   "dependencies": {
     "express": "^4.16.1",
     "matter-js": "^0.13.0",
+    "nodemon": "^1.12.1",
     "serve": "^6.2.0",
     "ws": "^3.2.0"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node server/main.js",
+    "startNodemon": "nodemon server/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
