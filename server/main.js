@@ -174,10 +174,10 @@ function parseControls(session, clientId, controls){
     fx += 0.005;
   }
   if(controls.SPIN_RIGHT === true){
-    av += 0.01;
+    av += 0.05;
   }
   if(controls.SPIN_LEFT === true){
-    av -= 0.01;
+    av -= 0.05;
   }
   Body.applyForce(
     userObj,
@@ -191,7 +191,7 @@ function parseControls(session, clientId, controls){
     }
   );
   if(av !== 0){
-    Body.setAngularVelocity(userObj, av + userObj.angularSpeed);
+    Body.setAngularVelocity(userObj, av + userObj.angularVelocity);
   }
 }
 
