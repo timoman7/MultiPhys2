@@ -1,3 +1,16 @@
+function findByClientId(_engine, clientId){
+  let foundBody = {};
+  _engine.world.bodies.forEach((bod) => {
+    if(bod.clientId === clientId){
+      foundBody = bod;
+      return true;
+    }
+    return false;
+    //return bod.clientId === clientId;
+  });
+  return foundBody;
+}
+
 class ConnectionManager
 {
     constructor(user)
@@ -78,6 +91,8 @@ class ConnectionManager
                 }
                 tempOptions[opt] = optVal;
               });
+              tempOptions.width = window.innerWidth - 40;
+              tempOptions.height = window.innerHeight - 40;
               window.render = window.Render.create({
                 element: document.body,
                 engine: window.engine,
@@ -110,6 +125,12 @@ class ConnectionManager
         }else if(data.type === 'world-update'){
           if(data.world){
             window.engine.world = data.world;
+          }
+        }
+        if(window.render){
+          if(data.peers){
+            let userObj = findByClientId(window.engine, data.peers.you);
+            window.Render.lookAt(window.render, userObj, {x:200, y: 200});
           }
         }
         if(window.DEBUG){

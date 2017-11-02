@@ -31,8 +31,8 @@ var Engine = Matter.Engine,
 const Serializer = require('./Serializer');
 
 const WorldProp = {
-  width: 800,
-  height: 500,
+  width: 3200,
+  height: 2000,
   hasBounds: true,
   showAngleIndicator: true
 };
@@ -56,7 +56,7 @@ function createClient(conn, id = createId()) {
       bh = Math.floor(Math.random() * 60) + 20
     ){
       if(this.session){
-        let tempUser = Bodies.rectangle(bx, by, bw, bh);
+        let tempUser = Math.random() > 0.5 ? Bodies.rectangle(bx, by, bw, bh) : Bodies.circle(bx, by, bh);
         tempUser.clientId = id;
         World.add(this.session.engine.world, tempUser);
         client.createdBody = true;

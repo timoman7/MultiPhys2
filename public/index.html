@@ -3,7 +3,8 @@
     <title>Code With Friends</title>
     <style>
     .flipswitch{
-      position: relative;
+      position: absolute;
+      z-index: 100;
       background:linear-gradient(90deg, white 40%, aqua 60%);
       width: 120px;
       height: 40px;
@@ -18,10 +19,12 @@
       border:1px solid #ddd;
     }
     .flipswitch:checked{
+      z-index: 100;
       background:linear-gradient(270deg, white 40%, aqua 60%);
     }
     .flipswitch:after{
       position:absolute;
+      z-index: 100;
       top:5%;
       display:block;
       line-height:32px;
@@ -36,6 +39,7 @@
       border-radius:3px;
     }
     .flipswitch:after{
+      z-index: 100;
       left:2%;
       content: " ";
     }
@@ -46,7 +50,7 @@
     </style>
 </head>
 <body>
-  <input type="checkbox" class="flipswitch" id="debug"></input>
+    <input type="checkbox" class="flipswitch" id="debug"></input>
     <script src="client/connection-manager.js"></script>
     <script src="client/matter.js"></script>
     <script src="client/resurrect.js"></script>
